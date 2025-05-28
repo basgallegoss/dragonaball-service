@@ -67,3 +67,27 @@ curl -X POST http://localhost:8080/characters \
 }
 ```
 
+## Diagrama de la solución
+
+A continuación un diagrama de secuencia `GetOrCreate`:
+
+```mermaid
+sequenceDiagram
+    participant Cliente
+    participant API
+    participant BD
+    participant ExternalAPI
+
+    Cliente->>API: POST /characters { "name": "Goku" }
+    API->>BD: SELECT * FROM characters WHERE name='Goku'
+    alt existe en BD
+        BD-->>API: datos del personaje
+    else personaje no existe
+        API->>ExternalAPI: GET /characters?name=Goku
+        ExternalAPI-->>API: detalle del personaje
+        API->>BD: INSERT personaje en BD
+    end
+    API-->>Cliente: JSON con datos del personaje
+```
+
+>
