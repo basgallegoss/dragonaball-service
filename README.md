@@ -23,7 +23,7 @@
    - Exporta las variables de entorno:
      ```bash
      export DATABASE_DSN="postgres://user:password@localhost:5432/dragonball?sslmode=disable"
-     export API_URL="https://web.dragonball-api.com"
+     export API_URL="https://dragonball-api.com/api"
      ```
    - Compila y ejecuta la aplicación:
      ```bash
@@ -67,7 +67,7 @@ curl -X POST http://localhost:8080/characters \
 }
 ```
 
-## Diagrama de la solución
+## Diagrama de secuencia
 
 A continuación un diagrama de secuencia `GetOrCreate`:
 
@@ -85,7 +85,7 @@ sequenceDiagram
     else personaje no existe
         API->>ExternalAPI: GET /characters?name=Goku
         ExternalAPI-->>API: detalle del personaje
-        API->>BD: INSERT personaje en BD
+        API->>BD: INSERT personaje en bd
     end
     API-->>Cliente: JSON con datos del personaje
 ```
