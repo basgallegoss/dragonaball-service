@@ -1,0 +1,38 @@
+version: "2.4"
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pruebaTecnica
+      POSTGRES_DB: dragonball
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: dragonball-service_app
+    command: ["./dragonball"]
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    env_file:
+      - ../.env
+    restart: unless-stopped
+
+
+volumes:
+  db_data:
