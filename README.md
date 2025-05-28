@@ -22,7 +22,7 @@
    - Asegúrate de tener un servicio de Postgres corriendo en tu máquina con las credenciales configuradas en las variables de entorno.
    - Exporta las variables de entorno:
      ```bash
-     export DATABASE_DSN="postgres://user:password@localhost:5432/dragonball?sslmode=disable"
+     export DATABASE_DSN="host=db user=postgres password=pruebaTecnica dbname=dragonball port=5432 sslmode=disable TimeZone=UTC"
      export API_URL="https://dragonball-api.com/api"
      ```
    - Compila y ejecuta la aplicación:
